@@ -44,28 +44,6 @@ const taskResolvers = {
       }
     },
 
-    updateTask: async (
-      _: unknown,
-      { id, completed }: UpdateTaskInput
-    ) => {
-      try {
-        const updatedTask = await Task.findByIdAndUpdate(
-          id,
-          { completed },
-          { new: true }
-        );
-
-        if (!updatedTask) {
-          throw new Error("Task not found");
-        }
-
-        return updatedTask;
-      } catch (error) {
-        console.error("Error updating task:", error);
-        throw new Error("Failed to update task");
-      }
-    },
-
     editTask: async (
       _: unknown,
       { id, title, description, priority, dueDate }: TaskInput
