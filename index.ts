@@ -24,7 +24,7 @@ async function startApolloServer() {
 
     app.use("/graphql", express.json(), expressMiddleware(server));
 
-    app.listen(8000, () => {
+    app.listen(process.env.PORT, () => {
       console.log(`🚀 Server ready at http://localhost:8000/graphql`);
     });
   } catch (error) {
