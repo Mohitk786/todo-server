@@ -1,6 +1,7 @@
 const Task = require("../models/task");
 
 interface TaskInput {
+  id?: string;
   title: string;
   description: string;
   priority: string;
@@ -62,6 +63,28 @@ const taskResolvers = {
       } catch (error) {
         console.error("Error updating task:", error);
         throw new Error("Failed to update task");
+      }
+    },
+
+    editTask: async (
+      _: unknown,
+      { id, title, description, priority, dueDate }: TaskInput
+    ) => {
+      try {
+        const updatedTask = await Task.findByIdAndUpdate(
+          id,
+          { title, description, priority, dueDate },
+          { new: true }
+        );
+
+        if (!updatedTask) {
+          throw new Error("Task not found");
+        }
+
+        return updatedTask;
+      } catch (error) {
+        console.error("Error editing task:", error);
+        throw new Error("Failed to edit task");
       }
     },
 
